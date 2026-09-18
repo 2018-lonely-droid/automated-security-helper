@@ -152,9 +152,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, macos-14, windows-latest]
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         exclude:
-          # macOS ARM (macos-14) only has 3.12 and 3.13
+          # macOS ARM (macos-14) only has 3.12 and later. 3.14 is not excluded
+          # here because the actions/python-versions manifest carries a
+          # darwin/arm64 build for 3.14.7, the newest stable 3.14 -- the same
+          # shape as 3.13, whose newest stable also ships arm64.
           - { os: macos-14, python-version: "3.10" }
           - { os: macos-14, python-version: "3.11" }
         include:
